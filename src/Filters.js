@@ -40,6 +40,8 @@ export default function FilterComponent({ getGroupBy, getFrom, getTo }) {
             selected={startDate}
             dateFormat="yy/MM/dd"
             onChange={handleStartDate}
+            minDate={startDate}
+            maxDate={lastDate}
           />
         </form>
         <div className="">
@@ -48,6 +50,8 @@ export default function FilterComponent({ getGroupBy, getFrom, getTo }) {
                 LastDate
               </label> */}
             <DatePicker
+              minDate={startDate}
+              maxDate={lastDate}
               dateFormat="yy/MM/dd"
               selected={lastDate}
               onChange={(date) => handleLastDate(date)}
