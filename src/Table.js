@@ -270,7 +270,7 @@ function Table() {
               <input
                 type="number"
                 className="form-control "
-                defaultValue={pageIndex + 1}
+                defaultValue={pageIndex}
                 onChange={(e) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0;
                   gotoPage(page);
