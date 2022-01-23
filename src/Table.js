@@ -119,7 +119,7 @@ function Table() {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+
     prepareRow,
     previousPage,
     canPreviousPage,
