@@ -246,7 +246,7 @@ function Table() {
             <span className="pt-2 text-sm">
               Page{" "}
               <strong>
-                {pageIndex + 1} of {pageOptions.length}
+                {pageIndex} of {pageOptions.length}
               </strong>{" "}
             </span>
             <button
