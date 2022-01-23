@@ -17,14 +17,14 @@ export default function FilterComponent({ getGroupBy, getFrom, getTo }) {
   };
 
   return (
-    <div className="d-flex ">
+    <div className="d-flex flex-wrap ">
       {" "}
       <form action="" className="">
         <select
           onChange={(e) => getGroupBy(e.target.value)}
           className=" form-select-sm mt-3 me-2"
           aria-label="Default select example"
-          style={{ width: "100%" }}
+          style={{ minWidth: "80%" }}
         >
           <option value="day">Day</option>
           <option value="week">Week</option>

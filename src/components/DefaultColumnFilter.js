@@ -6,7 +6,7 @@ function DefaultColumnFilter({
   return (
     <input
       value={filterValue || ""}
-      style={{ width: "60%", fontSize: "13px" }}
+      style={{ width: "95%", fontSize: "13px" }}
       onChange={(e) => {
         setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
       }}

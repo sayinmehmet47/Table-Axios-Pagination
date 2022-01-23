@@ -5,8 +5,8 @@ import matchSorter from "match-sorter";
 import Filter from "./Filters";
 import NumberRangeColumnFilter from "./components/NumberRangeColumnFilter";
 import DefaultColumnFilter from "./components/DefaultColumnFilter";
-import FilterComponent from "./Filters";
-
+import { MdLastPage, MdFirstPage } from "react-icons/md";
+import { FcNext, FcPrevious } from "react-icons/fc";
 function fuzzyTextFilterFn(rows, id, filterValue) {
   return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
 }
@@ -123,15 +123,22 @@ function Table() {
     prepareRow,
     previousPage,
     canPreviousPage,
-    nextPage,
     visibleColumns,
     canNextPage,
     page,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
 
       data,
+      initialState: { pageIndex: 1, pageSize: 10 },
+
       defaultColumn, // Be sure to pass the defaultColumn option
       filterTypes,
     },
@@ -150,7 +157,7 @@ function Table() {
         getFrom={(e) => setFrom(e)}
       /> */}
       <div className="d-flex flex-column mb-5 mt-5 mx-5">
-        <table className="table table-hover shadow" {...getTableProps()}>
+        <table className="table table-hover shadow " {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -219,21 +226,75 @@ function Table() {
             })}
           </tbody>
         </table>
-        <div className="">
-          <button
-            className="btn btn-outline-dark btn-sm"
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          >
-            ⬅ Previous
-          </button>
-          <button
-            className="btn btn-outline-dark btn-sm"
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-          >
-            NextPage ➡
-          </button>
+
+        <div className="d-flex justify-content-between align-items-center flex-wrap">
+          <div>
+            <button
+              className="btn btn-dark btn-sm"
+              onClick={() => gotoPage(0)}
+              disabled={!canPreviousPage}
+            >
+              <MdFirstPage />
+            </button>{" "}
+            <button
+              className="btn btn-dark btn-sm mx-1"
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+            >
+              <FcPrevious />
+            </button>
+            <span className="pt-2 text-sm">
+              Page{" "}
+              <strong>
+                {pageIndex + 1} of {pageOptions.length}
+              </strong>{" "}
+            </span>
+            <button
+              className="btn btn-sm btn-dark mx-1"
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+            >
+              <FcNext />
+            </button>
+            <button
+              className="btn btn-dark btn-sm"
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              <MdLastPage />
+            </button>{" "}
+          </div>
+          <div className="d-flex flex-wrap">
+            <span>
+              Go to page
+              <input
+                type="number"
+                className="form-control "
+                defaultValue={pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  gotoPage(page);
+                }}
+                style={{ width: "100px" }}
+              />
+            </span>{" "}
+            <span>
+              Row
+              <select
+                className="form-control"
+                value={pageSize}
+                onChange={(e) => {
+                  setPageSize(Number(e.target.value));
+                }}
+              >
+                {[10, 20, 30, 40, 50].map((pageSize) => (
+                  <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                  </option>
+                ))}
+              </select>
+            </span>
+          </div>
         </div>
       </div>
     </div>

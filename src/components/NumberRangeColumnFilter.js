@@ -14,14 +14,10 @@ function NumberRangeColumnFilter({
   }, [id, preFilteredRows]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-      }}
-    >
+    <div className="d-flex flex-wrap flex-column">
       <input
         value={filterValue[0] || ""}
-        style={{ width: "37%", fontSize: "13px" }}
+        style={{ width: "80px", fontSize: "13px" }}
         type="number"
         onChange={(e) => {
           const val = e.target.value;
@@ -32,11 +28,10 @@ function NumberRangeColumnFilter({
         }}
         placeholder={`Min (${min})`}
       />
-      to
       <input
         value={filterValue[1] || ""}
         type="number"
-        style={{ width: "37%", fontSize: "13px" }}
+        style={{ width: "80px", fontSize: "13px" }}
         onChange={(e) => {
           const val = e.target.value;
           setFilter((old = []) => [
